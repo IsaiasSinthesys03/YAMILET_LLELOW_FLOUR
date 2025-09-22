@@ -1,0 +1,756 @@
+/* Variables y Estilos Base */
+:root {
+    --amarillo-principal: #E8F5E8;
+    --amarillo-suave: #F0F8E8;
+    --amarillo-dorado: #D4E6D4;
+    --crema-fondo: #F9FBF9;
+    --texto-oscuro: #2C3E2C;
+    --texto-suave: #4A5A4A;
+    --sombra-suave: rgba(44, 62, 44, 0.1);
+    --sombra-media: rgba(44, 62, 44, 0.2);
+    --transicion-suave: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-image: url('img/A1.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+    color: var(--texto-oscuro);
+    line-height: 1.6;
+}
+
+/* Pantalla de Inicio */
+#inicio-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 250, 205, 0.3); /* Amarillo Limón Pálido semi-transparente */
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transicion-suave);
+    z-index: 1000;
+}
+
+#flor-container {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#flor-disney {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 10px 30px var(--sombra-media));
+}
+
+/* Estados iniciales para animación */
+.petalo {
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: 100px 100px;
+}
+
+.centro {
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: 100px 100px;
+}
+
+/* Animación de respiración continua */
+@keyframes respiracion {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 10px 30px var(--sombra-media));
+    }
+    50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 15px 40px var(--sombra-media));
+    }
+}
+
+.flor-animada {
+    animation: respiracion 4s ease-in-out infinite;
+}
+
+/* Pantalla del Menú */
+#menu-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 250, 205, 0.3); /* Amarillo Limón Pálido semi-transparente */
+    backdrop-filter: blur(2px);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    z-index: 999;
+}
+
+/* Contenedor de pétalos global */
+#petalos-container {
+    position: fixed; /* 'fixed' en lugar de 'absolute' para que se quede siempre */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    pointer-events: none; /* Crucial para poder hacer clic en lo que está debajo */
+    z-index: 900; /* Un valor alto, pero menor que el de las pantallas */
+}
+
+/* Decoración de flores en esquinas */
+#decoracion-flores {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.flor-esquina {
+    position: absolute;
+    opacity: 0.3;
+    animation: rotacion-lenta 20s linear infinite;
+}
+
+.flor-decorativa {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.flor-esquina-1 {
+    top: 2rem;
+    left: 2rem;
+}
+
+.flor-esquina-2 {
+    top: 2rem;
+    right: 2rem;
+}
+
+.flor-esquina-3 {
+    bottom: 2rem;
+    left: 2rem;
+}
+
+.flor-esquina-4 {
+    bottom: 2rem;
+    right: 2rem;
+}
+
+@keyframes rotacion-lenta {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Contenedor de la Galería */
+#galeria-container {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    width: 100%;
+    z-index: 2;
+    position: relative;
+}
+
+/* --- Estilos para el Cubo 3D --- */
+#cubo-escenario {
+    width: 100%;
+    max-width: 1200px; /* Igual que el contenedor principal */
+    height: 500px;  /* Altura fija para el escenario */
+    perspective: 1500px; /* Profundidad de la escena 3D */
+}
+
+#cubo {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* Transición más rápida y ágil */
+}
+
+.cara-cubo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Oculta la cara trasera de un elemento */
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.cara-cubo img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px var(--sombra-media);
+}
+
+/* Posicionamiento de las caras del cubo */
+.cara-frontal {
+    transform: translateZ(250px); /* Mueve la cara hacia el espectador */
+}
+
+.cara-trasera {
+    transform: rotateY(180deg) translateZ(250px); /* La pone detrás, mirando hacia adentro */
+}
+
+.cara-derecha {
+    transform: rotateY(90deg) translateZ(250px);
+    background: rgba(255, 255, 255, 0.1);
+}
+.cara-izquierda {
+    transform: rotateY(-90deg) translateZ(250px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.imagen-con-marco {
+    position: relative;
+    display: block;
+    width: 400px; /* Ancho fijo para que el sticker tenga espacio */
+    height: 400px; /* Altura fija para que el sticker tenga espacio */
+}
+
+#imagen-mostrada {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px var(--sombra-media);
+}
+
+.marco-decorativo {
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+    width: 600px !important; /* Forzado con !important para asegurar que se aplique */
+    height: 90px;
+    object-fit: contain;
+    opacity: 0.9;
+    z-index: 3;
+    pointer-events: none;
+    transition: transform 0.3s ease;
+    background: transparent !important; /* Fondo completamente transparente */
+    border: none !important; /* Sin bordes */
+    outline: none !important; /* Sin contornos */
+    box-shadow: none !important; /* Sin sombras */
+    filter: none !important; /* Sin filtros que puedan crear fondo */
+}
+
+.imagen-con-marco:hover .marco-decorativo {
+    transform: scale(1.05);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5)) brightness(1.2);
+}
+
+.marco-decorativo-c8 {
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+    width: 200px !important; /* Tamaño aún más reducido para C8 */
+    height: 300px !important;
+    object-fit: contain; /* Mantiene la imagen en su tamaño original */
+    object-position: center top; /* Posiciona la imagen en el centro horizontal y arriba verticalmente */
+    opacity: 0.9;
+    z-index: 3;
+    pointer-events: none;
+    transition: transform 0.3s ease;
+    background: transparent !important; /* Fondo completamente transparente */
+    border: none !important; /* Sin bordes */
+    outline: none !important; /* Sin contornos */
+    box-shadow: none !important; /* Sin sombras */
+    filter: none !important; /* Sin filtros que puedan crear fondo */
+    object-position: center center;
+}
+
+.imagen-con-marco:hover .marco-decorativo-c8 {
+    transform: scale(1.05);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5)) brightness(1.2);
+}
+
+.marco-decorativo-c9 {
+    position: absolute;
+    bottom: -50px;
+    left: 250px;
+    width: 200px !important; /* Mismo tamaño que C8 */
+    height: 200px !important;
+    object-fit: contain; /* Mantiene la imagen en su tamaño original */
+    object-position: center top; /* Posiciona la imagen en el centro horizontal y arriba verticalmente */
+    opacity: 0.9;
+    z-index: 3;
+    pointer-events: none;
+    transition: transform 0.3s ease;
+    background: transparent !important; /* Fondo completamente transparente */
+    border: none !important; /* Sin bordes */
+    outline: none !important; /* Sin contornos */
+    box-shadow: none !important; /* Sin sombras */
+    filter: none !important; /* Sin filtros que puedan crear fondo */
+    object-position: center center;
+}
+
+.imagen-con-marco:hover .marco-decorativo-c9 {
+    transform: scale(1.05);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5)) brightness(1.2);
+}
+
+.marco-decorativo-c10 {
+    position: absolute;
+    bottom: -120px;
+    left: -50px;
+    width: 300px !important; /* Mismo tamaño que C9 */
+    height: 300px !important;
+    object-fit: contain; /* Mantiene la imagen en su tamaño original */
+    object-position: center top; /* Posiciona la imagen en el centro horizontal y arriba verticalmente */
+    opacity: 0.9;
+    z-index: 3;
+    pointer-events: none;
+    transition: transform 0.3s ease;
+    background: transparent !important; /* Fondo completamente transparente */
+    border: none !important; /* Sin bordes */
+    outline: none !important; /* Sin contornos */
+    box-shadow: none !important; /* Sin sombras */
+    filter: none !important; /* Sin filtros que puedan crear fondo */
+    object-position: center center;
+}
+
+.imagen-con-marco:hover .marco-decorativo-c10 {
+    transform: scale(1.05);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5)) brightness(1.2);
+}
+
+.marco-decorativo-c7 {
+    position: absolute;
+    bottom: -70px;
+    left: 200px;
+    width: 300px !important; /* Mismo tamaño que C10 */
+    height: 300px !important;
+    object-fit: contain; /* Mantiene la imagen en su tamaño original */
+    object-position: center top; /* Posiciona la imagen en el centro horizontal y arriba verticalmente */
+    opacity: 0.9;
+    z-index: 3;
+    pointer-events: none;
+    transition: transform 0.3s ease;
+    background: transparent !important; /* Fondo completamente transparente */
+    border: none !important; /* Sin bordes */
+    outline: none !important; /* Sin contornos */
+    box-shadow: none !important; /* Sin sombras */
+    filter: none !important; /* Sin filtros que puedan crear fondo */
+    object-position: center center;
+}
+
+.imagen-con-marco:hover .marco-decorativo-c7 {
+    transform: scale(1.05);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5)) brightness(1.2);
+}
+
+.marco-decorativo-c3 {
+    position: absolute;
+    bottom: 250px;
+    left: 300px;
+    width: 200px !important; /* Mismo tamaño que C7 y C10 */
+    height: 200px !important;
+    object-fit: contain; /* Mantiene la imagen en su tamaño original */
+    object-position: center top; /* Posiciona la imagen en el centro horizontal y arriba verticalmente */
+    opacity: 0.9;
+    z-index: 3;
+    pointer-events: none;
+    transition: transform 0.3s ease;
+    background: transparent !important; /* Fondo completamente transparente */
+    border: none !important; /* Sin bordes */
+    outline: none !important; /* Sin contornos */
+    box-shadow: none !important; /* Sin sombras */
+    filter: none !important; /* Sin filtros que puedan crear fondo */
+    object-position: center center;
+}
+
+.imagen-con-marco:hover .marco-decorativo-c3 {
+    transform: scale(1.05);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5)) brightness(1.2);
+}
+
+.texto-container { /* Renombramos el ID a una clase */
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px var(--sombra-media);
+    max-width: 500px;
+}
+
+/* Posicionamiento de las caras del cubo */
+.cara-frontal {
+    transform: translateZ(250px); /* Mueve la cara hacia el espectador */
+}
+
+.cara-trasera {
+    transform: rotateY(180deg) translateZ(250px); /* La pone detrás, mirando hacia adentro */
+}
+
+.cara-derecha {
+    transform: rotateY(90deg) translateZ(250px);
+    background: rgba(255, 255, 255, 0.1);
+}
+.cara-izquierda {
+    transform: rotateY(-90deg) translateZ(250px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Estilos de Imagen */
+#imagen-mostrada {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px var(--sombra-media);
+    border: 3px solid var(--amarillo-dorado);
+    transition: var(--transicion-suave);
+}
+
+#imagen-mostrada:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 70px var(--sombra-media);
+}
+
+/* Contenedor de Texto */
+#texto-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px var(--sombra-media);
+    border: 2px solid var(--amarillo-dorado);
+    max-width: 500px;
+    backdrop-filter: blur(10px);
+    transition: var(--transicion-suave);
+}
+
+#texto-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 25px 70px var(--sombra-media);
+}
+
+#texto-mostrado {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--texto-oscuro);
+    line-height: 1.8;
+    text-align: center;
+}
+
+/* Contenedor del Mensaje Final */
+#final-mensaje-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    opacity: 0;
+    z-index: 3;
+    background-color: rgba(20, 19, 19, 0.3);
+    backdrop-filter: blur(1px);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+#final-mensaje-container h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #FF8C00; /* Color anaranjado */
+    margin-bottom: 1.5rem;
+    text-shadow: 
+        0 0 10px #FFD700,  /* Glow dorado interno */
+        0 0 20px #FFD700,  /* Glow dorado medio */
+        0 0 30px #FFD700,  /* Glow dorado externo */
+        0 2px 10px rgba(255, 215, 0, 0.5); /* Sombra dorada suave */
+}
+
+#final-mensaje-container p {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.6rem;
+    color: #FFA500; /* Color anaranjado más claro */
+    font-weight: 300;
+    text-shadow: 
+        0 0 8px #FFD700,  /* Glow dorado interno */
+        0 0 16px #FFD700, /* Glow dorado medio */
+        0 1px 5px rgba(255, 215, 0, 0.4); /* Sombra dorada suave */
+}
+
+.sticker-c2-final {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 650px;
+    height: 650px;
+    object-fit: contain;
+    object-position: center center;
+    opacity: 1; /* Completamente opaco */
+    z-index: -1; /* Detrás del contenedor de texto */
+    pointer-events: none;
+    transition: opacity 1s ease-in-out;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #galeria-container {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 1rem;
+    }
+    
+    
+    #cubo-escenario {
+        height: 400px;
+    }
+    
+    .cara-cubo img {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .imagen-con-marco {
+        width: 300px; /* Ancho fijo para móvil */
+        height: 300px; /* Altura fija para móvil */
+    }
+    
+    .marco-decorativo {
+        width: 110px !important; /* Forzado con !important para asegurar que se aplique en móvil */
+        min-width: 110px !important; /* Ancho mínimo forzado en móvil */
+        height: 65px;
+        bottom: 12px;
+        left: 12px;
+        object-position: center center; /* Centra la imagen C4 en móvil también */
+    }
+    
+    .marco-decorativo-c8 {
+        width: 35px !important; /* Tamaño aún más reducido para C8 en móvil */
+        min-width: 35px !important; /* Ancho mínimo aún más reducido en móvil */
+        height: 20px;
+        bottom: 12px;
+        left: 12px;
+        object-position: center center; /* Centra la imagen C8 en móvil también */
+    }
+    
+    .marco-decorativo-c9 {
+        width: 35px !important; /* Mismo tamaño que C8 en móvil */
+        min-width: 35px !important; /* Ancho mínimo igual que C8 en móvil */
+        height: 20px;
+        bottom: 12px;
+        left: 12px;
+        object-position: center center; /* Centra la imagen C9 en móvil también */
+    }
+    
+    .marco-decorativo-c10 {
+        width: 35px !important; /* Mismo tamaño que C9 en móvil */
+        min-width: 35px !important; /* Ancho mínimo igual que C9 en móvil */
+        height: 20px;
+        bottom: 12px;
+        left: 12px;
+        object-position: center center; /* Centra la imagen C10 en móvil también */
+    }
+    
+    .marco-decorativo-c7 {
+        width: 35px !important; /* Mismo tamaño que C10 en móvil */
+        min-width: 35px !important; /* Ancho mínimo igual que C10 en móvil */
+        height: 20px;
+        bottom: 12px;
+        left: 12px;
+        object-position: center center; /* Centra la imagen C7 en móvil también */
+    }
+    
+    .marco-decorativo-c3 {
+        width: 35px !important; /* Mismo tamaño que C7 en móvil */
+        min-width: 35px !important; /* Ancho mínimo igual que C7 en móvil */
+        height: 20px;
+        bottom: 12px;
+        left: 12px;
+        object-position: center center; /* Centra la imagen C3 en móvil también */
+    }
+    
+    .texto-container {
+        padding: 2rem;
+        max-width: 90%;
+    }
+    
+    .sticker-c2-final {
+        width: 200px;
+        height: 200px;
+    }
+    
+    #texto-mostrado {
+        font-size: 1.2rem;
+    }
+    
+    #final-mensaje-container h2 {
+        font-size: 2.2rem;
+    }
+    
+    #final-mensaje-container p {
+        font-size: 1.3rem;
+    }
+    
+    .flor-decorativa {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    #imagen-mostrada {
+        width: 250px;
+        height: 250px;
+    }
+    
+    #texto-container {
+        padding: 1.5rem;
+    }
+    
+    #texto-mostrado {
+        font-size: 1.1rem;
+    }
+    
+    #final-mensaje-container h2 {
+        font-size: 1.8rem;
+    }
+    
+    #final-mensaje-container p {
+        font-size: 1.1rem;
+    }
+}
+
+/* Animaciones de entrada y salida */
+.entrada-imagen {
+    animation: entradaImagen 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.salida-imagen {
+    animation: salidaImagen 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.entrada-texto {
+    animation: entradaTexto 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.salida-texto {
+    animation: salidaTexto 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes entradaImagen {
+    from {
+        opacity: 0;
+        transform: translateX(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes salidaImagen {
+    from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-50px) scale(0.9);
+    }
+}
+
+@keyframes entradaTexto {
+    from {
+        opacity: 0;
+        transform: translateX(-50px) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+    }
+}
+
+@keyframes salidaTexto {
+    from {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(50px) translateY(-20px);
+    }
+}
+
+/* Estilos para lluvia de pétalos con imágenes */
+.petalo-img {
+    position: absolute;
+    pointer-events: none; /* Para que no interfieran con el clic */
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: caida-diagonal 10s linear infinite;
+    opacity: 1; /* Opacidad completa para máxima visibilidad */
+    z-index: 1; /* Asegurar que estén por encima del fondo */
+}
+
+.petalo-img-1 {
+    background-image: url('img/P1.png');
+}
+
+.petalo-img-2 {
+    background-image: url('img/P2.png');
+}
+
+.petalo-img-3 {
+    background-image: url('img/P3.png');
+}
+
+.petalo-img-4 {
+    background-image: url('img/P4.png');
+}
+
+.petalo-img-5 {
+    background-image: url('img/P5.png');
+}
+
+/* Animación de caída diagonal para los pétalos */
+@keyframes caida-diagonal {
+    0% {
+        transform: translateY(-100vh) translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) translateX(var(--direccion-caida, 50vw)) rotate(360deg);
+        opacity: 0;
+    }
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Flor Amarilla</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Pantalla de Inicio -->
+    <div id="inicio-screen">
+        <div id="flor-container">
+            <svg id="flor-disney" viewBox="0 0 200 200">
+                <defs>
+                    <radialGradient id="gradiente-centro">
+                        <stop offset="0%" stop-color="#FFFACD" />
+                        <stop offset="100%" stop-color="#FFD700" />
+                    </radialGradient>
+                    <linearGradient id="gradiente-petalo" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#FFEC8B" />
+                        <stop offset="100%" stop-color="#FFD700" />
+                    </linearGradient>
+                     <filter id="glow-suave">
+                        <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <g class="petalos" style="filter:url(#glow-suave);">
+                    <path class="petalo" id="petalo-1" transform="rotate(0, 100, 100)" d="M100,100 C130,130 130,170 100,170 C70,170 70,130 100,100 Z" fill="url(#gradiente-petalo)" />
+                    <path class="petalo" id="petalo-2" transform="rotate(59.43, 100, 100)" d="M100,100 C130,130 130,170 100,170 C70,170 70,130 100,100 Z" fill="url(#gradiente-petalo)" />
+                    <path class="petalo" id="petalo-3" transform="rotate(119.86, 100, 100)" d="M100,100 C130,130 130,170 100,170 C70,170 70,130 100,100 Z" fill="url(#gradiente-petalo)" />
+                    <path class="petalo" id="petalo-4" transform="rotate(179.29, 100, 100)" d="M100,100 C130,130 130,170 100,170 C70,170 70,130 100,100 Z" fill="url(#gradiente-petalo)" />
+                    <path class="petalo" id="petalo-5" transform="rotate(239.71, 100, 100)" d="M100,100 C130,130 130,170 100,170 C70,170 70,130 100,100 Z" fill="url(#gradiente-petalo)" />
+                    <path class="petalo" id="petalo-6" transform="rotate(299.14, 100, 100)" d="M100,100 C130,130 130,170 100,170 C70,170 70,130 100,100 Z" fill="url(#gradiente-petalo)" />
+                    <path class="petalo" id="petalo-7" transform="rotate(359.57, 100, 100)" d="M100,100 C130,130 130,170 100,170 C70,170 70,130 100,100 Z" fill="url(#gradiente-petalo)" />
+                </g>
+                <circle class="centro" cx="100" cy="100" r="40" fill="url(#gradiente-centro)" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- Pantalla del Menú -->
+    <main id="menu-screen">
+        <div id="petalos-container"></div>
+        <div id="decoracion-flores">
+            <div class="flor-esquina flor-esquina-1">
+                <img src="img/D1.png" alt="Flor decorativa 1" class="flor-decorativa">
+            </div>
+            <div class="flor-esquina flor-esquina-2">
+                <img src="img/D2.png" alt="Flor decorativa 2" class="flor-decorativa">
+            </div>
+            <div class="flor-esquina flor-esquina-3">
+                <img src="img/D3.png" alt="Flor decorativa 3" class="flor-decorativa">
+            </div>
+            <div class="flor-esquina flor-esquina-4">
+                <img src="img/D4.png" alt="Flor decorativa 4" class="flor-decorativa">
+            </div>
+        </div>
+        
+        <div id="galeria-container">
+            <div id="cubo-escenario">
+                <div id="cubo">
+                    <div class="cara-cubo cara-frontal">
+                        <div class="imagen-con-marco">
+                            <img id="imagen-mostrada-frente" src="" alt="Imagen de la galería">
+                            <img src="img/C4.png" alt="Marco decorativo" class="marco-decorativo">
+                            <img src="img/C8.png" alt="Marco decorativo C8" class="marco-decorativo-c8">
+                            <img src="img/C9.png" alt="Marco decorativo C9" class="marco-decorativo-c9">
+                            <img src="img/C10.png" alt="Marco decorativo C10" class="marco-decorativo-c10">
+                            <img src="img/C7.png" alt="Marco decorativo C7" class="marco-decorativo-c7">
+                            <img src="img/C3.png" alt="Marco decorativo C3" class="marco-decorativo-c3">
+                        </div>
+                        <div id="texto-container-frente" class="texto-container">
+                            <p id="texto-mostrado-frente"></p>
+                        </div>
+                    </div>
+                    <div class="cara-cubo cara-trasera">
+                        <div class="imagen-con-marco">
+                            <img id="imagen-mostrada-detras" src="" alt="Imagen de la galería">
+                            <img src="img/C4.png" alt="Marco decorativo" class="marco-decorativo">
+                            <img src="img/C8.png" alt="Marco decorativo C8" class="marco-decorativo-c8">
+                            <img src="img/C9.png" alt="Marco decorativo C9" class="marco-decorativo-c9">
+                            <img src="img/C10.png" alt="Marco decorativo C10" class="marco-decorativo-c10">
+                            <img src="img/C7.png" alt="Marco decorativo C7" class="marco-decorativo-c7">
+                            <img src="img/C3.png" alt="Marco decorativo C3" class="marco-decorativo-c3">
+                        </div>
+                        <div id="texto-container-detras" class="texto-container">
+                            <p id="texto-mostrado-detras"></p>
+                        </div>
+                    </div>
+                    <div class="cara-cubo cara-derecha"></div>
+                    <div class="cara-cubo cara-izquierda"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="final-mensaje-container">
+            <img src="img/C2.png" alt="Sticker C2" class="sticker-c2-final">
+            <h2>¡ESTA WEB SON TUS FLORES AMARILLAS!</h2>
+            <p>Y para mi tu mera amistad ya es mi flor amarilla mas preciada, TQM YAMILET</p>
+            <p>De parte de Isaias / UnpricedSteam78</p>
+        </div>
+        
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
