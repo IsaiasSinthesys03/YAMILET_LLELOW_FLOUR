@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const galeriaData = [
         {
             imagenSrc: "img/B1.jpg",
-            texto: "En todos estos años juntos hemos hecho muchas cosas, y por la falta de fotos pue tenia algunas tuyas"
+            texto: "En todos estos años juntos hemos hecho muchas cosas, y por la falta de fotos pues tenia algunas tuyas, espero no te moleste"
         },
         {
             imagenSrc: "img/B2.jpg",
